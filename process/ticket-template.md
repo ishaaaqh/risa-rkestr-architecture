@@ -1,53 +1,50 @@
 # Ticket Template
 
 ## ID
-
-`DOMAIN-NNN`
+`<DOMAIN>-<NUMBER>`
 
 ## Title
 
-Short action-oriented title.
-
-## Type
-
-Architecture / Backend / Frontend / DevOps / Test
-
 ## Objective
-
-What outcome does this ticket produce?
-
-## Dependencies
-
-List prerequisite tickets.
 
 ## Scope
 
-### Included
-
-### Excluded
-
-## Implementation Notes
-
-Relevant architectural constraints.
+## Non-goals
 
 ## Acceptance Criteria
 
-- [ ] Criterion 1
-- [ ] Criterion 2
+- [ ]
 
-## Verification
+## Architecture Impact
 
-How the result is tested.
+- [ ] None
+- [ ] Existing architecture implementation
+- [ ] Architecture change — ADR required
 
-## Documentation
+## API Impact
 
-What documentation must change.
+- [ ] None
+- [ ] New endpoint
+- [ ] Existing contract change
 
-## Definition of Done
+## Data Impact
 
-- [ ] Implementation complete
-- [ ] Tests complete
-- [ ] Security/authorization considered
-- [ ] Documentation updated
-- [ ] CI passes
-- [ ] Review complete
+- [ ] None
+- [ ] Migration
+- [ ] New/changed entity
+
+## Event Impact
+
+- [ ] None
+- [ ] Domain event
+- [ ] Integration event
+
+## Security Impact
+
+## Observability / Audit Impact
+
+## Dependencies
+
+## Related Tickets
+
+## Verification Evidence

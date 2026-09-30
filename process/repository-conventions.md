@@ -1,54 +1,68 @@
 # Repository Conventions
 
-## Repositories
+## Architecture repository
 
-- `risa-rkestr-architecture`
-- `risa-rkestr-backend`
-- `risa-rkestr-frontend`
+Contains:
 
-## Branching
+- Requirements
+- Architecture
+- ADRs
+- API governance
+- Data model
+- Flows
+- Diagrams
+- Sprint/ticket process
 
-Initial workflow:
+Does not contain application implementation code.
 
-```text
-feature/*
-   ↓
-develop
-   ↓
-main
-```
+## Backend repository
 
-Feature branch examples:
+Contains:
 
-- `feature/AUTH-001-user-domain`
-- `feature/WORK-001-workspace`
-- `feature/WORKITEM-001-create-work-item`
+- Spring Boot application
+- Domain/application/infrastructure implementation
+- Tests
+- Database migrations
+- Local development infrastructure
+- CI/CD configuration
+
+## Frontend repository
+
+Contains:
+
+- Next.js application
+- React/TypeScript features
+- UI components
+- Client-side tests
+- CI/CD configuration
+
+## Naming
+
+Product: Rkestr
+
+Core entity: Work Item
+
+Company context: RISA
+
+Java base package: `com.risa.rkestr`
+
+API prefix: `/api/v1`
+
+Database: `rkestr`
 
 ## Secrets
 
-Never commit real secrets.
+Never commit:
 
-Use:
-- `.env.example`
-- environment variables locally
-- managed secret storage in deployed environments
+- Passwords
+- API keys
+- Private keys
+- Tokens
+- Production connection strings
+- Real credentials
 
-## Commit style
+Use local environment variables / ignored `.env` files for development and managed secret storage for deployed environments.
 
-Use clear, ticket-referenced commits where practical:
+## Documentation
 
-`AUTH-001 Add user identity foundation`
-
-## Cross-repository traceability
-
-A business story may map to architecture, backend, frontend, and test tasks.
-
-Example:
-
-```text
-AUTH-001 User Registration
- ├── AUTH-001-ARCH
- ├── AUTH-001-BE
- ├── AUTH-001-FE
- └── AUTH-001-TEST
-```
+Documentation should explain decisions and contracts, not duplicate implementation unnecessarily.
