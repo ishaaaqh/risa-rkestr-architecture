@@ -1,0 +1,24 @@
+sequenceDiagram
+participant WI as Work Item
+participant CL as Classification
+participant T as Deadline / Time
+participant RM as Reminder Engine
+participant DB as PostgreSQL
+participant MQ as Broker
+participant NT as Notification
+participant P as Provider
+actor User
+WI->>CL: Classification context
+WI->>T: Temporal context
+CL->>RM: Importance / urgency / nature
+T->>RM: Deadlines / planned start
+RM->>RM: Resolve policy hierarchy
+RM->>DB: Store plan + reminder instances
+RM->>MQ: Async reminder work
+MQ->>NT: NotificationRequest
+NT->>NT: Preferences + policy + deduplication
+NT->>P: Deliver
+P-->>NT: Provider result
+NT->>DB: Delivery status
+P-->>User: Notification
+Note over RM,NT: Reminder decides WHEN; Notification decides HOW.

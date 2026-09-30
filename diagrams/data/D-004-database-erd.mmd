@@ -1,0 +1,22 @@
+erDiagram
+USER ||--o{ AUTH_IDENTITY : has
+USER ||--o{ AUTH_SESSION : has
+USER ||--o{ WORKSPACE_MEMBERSHIP : joins
+WORKSPACE ||--o{ WORKSPACE_MEMBERSHIP : contains
+ROLE ||--o{ WORKSPACE_MEMBERSHIP : grants
+ROLE ||--o{ ROLE_PERMISSION : maps
+PERMISSION ||--o{ ROLE_PERMISSION : grants
+WORKSPACE ||--o{ WORK_ITEM : owns
+USER ||--o{ WORK_ITEM : creates
+USER ||--o{ WORK_ITEM : owns
+USER ||--o{ WORK_ITEM : assigned_to
+WORK_ITEM ||--o{ SUBTASK : contains
+WORK_ITEM ||--o{ WORK_SESSION : has
+SUBTASK ||--o{ WORK_SESSION : has
+WORKSPACE ||--o{ CATEGORY : defines
+WORK_ITEM }o--|| CATEGORY : classified_as
+WORK_ITEM ||--o{ REMINDER_PLAN : has
+REMINDER_PLAN ||--o{ REMINDER_INSTANCE : creates
+REMINDER_INSTANCE ||--o{ NOTIFICATION : triggers
+WORK_ITEM ||--o{ AUDIT_EVENT : audited_by
+OUTBOX_EVENT }o--|| WORK_ITEM : references

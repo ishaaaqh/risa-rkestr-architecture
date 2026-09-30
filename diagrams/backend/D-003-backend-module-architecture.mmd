@@ -1,0 +1,29 @@
+flowchart LR
+API[API Layer] --> ID[Identity]
+API --> WS[Workspace & Authorization]
+API --> WI[Work Item]
+API --> CL[Classification]
+API --> DL[Deadlines & Time]
+API --> RM[Reminder]
+API --> SR[Search]
+WI --> WS
+WI --> CL
+WI --> DL
+RM --> WI
+RM --> DL
+SR --> WI
+ID --> DB[(Persistence)]
+WS --> DB
+WI --> DB
+CL --> DB
+DL --> DB
+RM --> DB
+SR --> DB
+WI --> OUT[Transactional Outbox]
+CL --> OUT
+DL --> OUT
+RM --> OUT
+OUT --> MQ[(Message Broker)]
+MQ --> EV[Event Processing]
+EV --> RM
+EV --> NT[Notification]

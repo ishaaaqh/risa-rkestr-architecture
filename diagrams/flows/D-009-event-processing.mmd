@@ -1,0 +1,26 @@
+sequenceDiagram
+participant TX as Domain Transaction
+participant DB as PostgreSQL
+participant OUT as Outbox
+participant PUB as Publisher
+participant MQ as Broker
+participant C as Consumer
+participant DLQ as Dead Letter Queue
+TX->>DB: Persist authoritative state
+TX->>OUT: Persist event
+Note over DB,OUT: Atomic transaction
+PUB->>OUT: Read unpublished event
+OUT-->>PUB: Event
+PUB->>MQ: Publish
+PUB->>OUT: Mark published
+MQ->>C: Deliver
+C->>C: Idempotency check
+alt Success
+C-->>MQ: ACK
+else Transient failure
+C->>C: Retry with backoff + jitter
+else Permanent failure
+C->>DLQ: Isolate failed event
+C-->>MQ: ACK / isolate
+end
+Note over MQ,C: At-least-once delivery.

@@ -1,0 +1,22 @@
+flowchart TB
+U[User] --> W[Rkestr Web<br/>Next.js / React / TypeScript]
+W --> API[Rkestr API<br/>Spring Boot Modular Monolith]
+API --> I[Identity]
+API --> WS[Workspace & Authorization]
+API --> WI[Work Item Core]
+API --> C[Classification & Decision]
+API --> D[Deadlines & Time]
+API --> R[Reminder]
+API --> S[Search & Productivity]
+API --> A[Audit]
+API --> DB[(PostgreSQL<br/>Authoritative)]
+WI --> O[(Transactional Outbox)]
+C --> O
+D --> O
+R --> O
+O --> B[(Message Broker)]
+B --> WK[Worker Runtimes]
+WK --> N[Notification]
+N --> EXT[Email / Push Providers]
+API --> OBJ[(Object Storage)]
+API -. optional .-> REDIS[(Redis<br/>Non-authoritative)]

@@ -1,0 +1,26 @@
+flowchart TB
+U[Users] --> EDGE[CDN / Edge / TLS]
+EDGE --> WEB[Rkestr Web]
+WEB --> ING[Ingress / Load Balancer]
+ING --> API1[Rkestr API Replica]
+ING --> API2[Rkestr API Replica]
+API1 --> PG[(Managed PostgreSQL)]
+API2 --> PG
+API1 --> MQ[(Managed Message Broker)]
+API2 --> MQ
+MQ --> W1[Worker Runtime]
+MQ --> W2[Worker Runtime]
+W1 --> PG
+W2 --> PG
+W1 --> EXT[Notification Providers]
+W2 --> EXT
+API1 --> OBJ[(Object Storage)]
+API2 --> OBJ
+SEC[Managed Secrets] -.-> API1
+SEC -.-> API2
+SEC -.-> W1
+SEC -.-> W2
+OBS[Logs / Metrics / Traces] -.-> API1
+OBS -.-> API2
+OBS -.-> W1
+OBS -.-> W2

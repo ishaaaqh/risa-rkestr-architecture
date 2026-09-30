@@ -1,0 +1,17 @@
+stateDiagram-v2
+[*] --> OPEN
+OPEN --> IN_PROGRESS: Start
+IN_PROGRESS --> OPEN: Pause
+OPEN --> COMPLETED: Complete
+IN_PROGRESS --> COMPLETED: Complete
+OPEN --> CANCELLED: Cancel
+IN_PROGRESS --> CANCELLED: Cancel
+COMPLETED --> IN_PROGRESS: Reopen if policy allows
+OPEN --> BLOCKED: Blocking condition
+IN_PROGRESS --> BLOCKED: Blocking condition
+BLOCKED --> OPEN: Unblocked
+BLOCKED --> IN_PROGRESS: Unblocked
+OPEN --> DELAYED: Beyond delay threshold
+IN_PROGRESS --> DELAYED: Beyond delay threshold
+DELAYED --> OPEN: Resume
+DELAYED --> IN_PROGRESS: Resume

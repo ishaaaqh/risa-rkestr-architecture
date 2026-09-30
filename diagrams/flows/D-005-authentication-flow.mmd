@@ -1,0 +1,17 @@
+sequenceDiagram
+actor User
+participant Web as Rkestr Web
+participant API as Rkestr API
+participant Auth as Identity
+participant DB as PostgreSQL
+User->>Web: Submit credentials
+Web->>API: POST /api/v1/auth/login
+API->>Auth: Authenticate
+Auth->>DB: Load user / credential state
+DB-->>Auth: Data
+Auth->>DB: Create authentication session
+Auth-->>API: Access + refresh tokens
+API-->>Web: Authentication response
+Web-->>User: Authenticated
+Note over Auth,DB: Sessions are individually revocable.
+Note over API,Auth: Authentication and authorization are separate.

@@ -1,0 +1,5 @@
+flowchart LR
+U[User] -->|HTTPS / Web| R[Rkestr]
+R -->|Future OIDC| IDP[Google / Microsoft / Enterprise IdP]
+R -->|Email| E[Email Provider]
+R -->|Push| P[Push Provider]

@@ -1,0 +1,25 @@
+sequenceDiagram
+actor User
+participant Web as Rkestr Web
+participant API as API
+participant Auth as Authorization
+participant WI as Work Item
+participant CL as Classification
+participant DL as Deadline / Time
+participant DB as PostgreSQL
+participant OUT as Outbox
+participant MQ as Broker
+User->>Web: Create Work Item
+Web->>API: POST /api/v1/work-items
+API->>Auth: Validate identity + workspace permission
+Auth-->>API: Authorized
+API->>WI: Create command
+WI->>CL: Validate / derive classification
+WI->>DL: Validate temporal semantics
+WI->>DB: Persist state + audit
+WI->>OUT: Persist WorkItemCreated
+Note over DB,OUT: Same transaction
+DB-->>WI: Commit
+WI-->>API: Created
+API-->>Web: 201 Created
+OUT->>MQ: Publish after commit
